@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DT//DTD Mapper 3.0//EN"  "  http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.example.demo.mapper.StudentMapper">
+    
+    <resultMap id="studentRM" type="com.example.demo.bean.Student">
+        <id column="Student_id"  jdbcType="INTEGER" property="id"></id>
+        <result column="Student_name" jdbcType="VARCHAR" property="name"></result>
+        <result column="Class_id"  jdbcType="INTEGER" property="gradeId"></result>
+      <result column="Student_age"  jdbcType="INTEGER" property="age"></result>
+            <result column="Address_id"  jdbcType="INTEGER" property="addressId"></result>
+        <association  property="address" column="Address_id" javaType="com.example.demo.bean.Address" select="com.example.demo.mapper.AddressMapper.select"></association>
+     </resultMap>
+   
+   
+    <insert id="add"  parameterType="com.example.demo.bean.Student">
+    INSERT INTO `studnet` (
+  `Student_id`,
+  `Student_name`,
+  `Class_id`,
+  `Address_id`,
+  `Student_age`
+) 
+VALUES
+  (
+    #{id},
+    #{name},
+    #{gradeId},
+    #{addressId},
+   #{age}
+  ) ;
+    </insert>
+    
+    
+     <delete id="delete" parameterType="int">
+       DELETE 
+      FROM
+      `studnet` 
+WHERE `Student_id` = #{id} ;
+       </delete>
+      
+      
+       <update id="update"  parameterType="com.example.demo.bean.Student" >
+       UPDATE 
+  `studnet` 
+SET
+  `Student_id` = #{id},
+  `Student_name` = #{name},
+   `Class_id` =  #{gradeId},
+   `Address_id` = #{addressId},
+  `Student_age` = #{age} 
+WHERE `Student_id` = #{id} ;
+       </update>
+      
+      
+       <select id="select"  parameterType="int" resultMap="studentRM">
+       select * from `studnet` where Student_id = #{id}
+      </select>
+       
+       
+       <select id="selectByClass_id"  parameterType="int" resultMap="studentRM">
+      select * from `studnet` where class_id=#{id}
+       </select>
+     
+     
+      <select id="selectByNameAndId"  parameterType="Map" resultMap="studentRM">
+      select * from `studnet` <where>
+      <if test="name!=null">
+          Student_name=#{name}
+      </if>
+      <if test="id!=null">
+           and  Student_id=#{id}
+      </if>
+      </where>
+       </select>
+       
+  <delete id="deleteByAddressId"  parameterType="Map" >
+       DELETE 
+      FROM
+      `studnet`
+      where
+      Address_id in
+      <foreach item="d" collection="addressId" open="(" separator="," close=")">
+      #{d}
+      </foreach>
+  </delete>
+        
+ </mapper> 

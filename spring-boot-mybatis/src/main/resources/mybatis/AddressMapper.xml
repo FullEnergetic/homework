@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DT//DTD Mapper 3.0//EN"  "  http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.example.demo.mapper.AddressMapper">
+       <resultMap id="addressRM" type="com.example.demo.bean.Address">
+        <id column="Address_id"  jdbcType="INTEGER" property="id"></id>
+        <result column="Address_name" jdbcType="VARCHAR" property="address"></result>
+    </resultMap>
+      
+       <insert id="add" parameterType="com.example.demo.bean.Address"> 
+		INSERT INTO `address` (`Address_id`, `Address_name`) 
+VALUES
+  (#{id}, #{address}) ;
+       </insert>
+       
+       <delete id="delete" parameterType="int">
+      DELETE 
+      FROM
+  `address` 
+WHERE `Address_id` = #{id} ;
+      
+       </delete>
+       <update id="update" parameterType="com.example.demo.bean.Address"> 
+       UPDATE 
+`address` 
+       SET
+  `Address_id` = #{id},
+  `Address_name` = #{address} 
+WHERE `Address_id` = #{id} ;
+       </update>
+       <select id="select"  parameterType="int" resultMap="addressRM">
+       select * from `address` where Address_id = #{id}
+       </select> 
+ </mapper> 

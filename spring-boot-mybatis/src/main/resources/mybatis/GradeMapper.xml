@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DT//DTD Mapper 3.0//EN"  "  http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.example.demo.mapper.GradeMapper">
+    
+    <resultMap id="gradeRM" type="com.example.demo.bean.Grade">
+        <id column="Class_id"  jdbcType="INTEGER" property="id"></id>
+        <result column="Class_name" jdbcType="VARCHAR" property="Grade_Name"></result>
+        <collection property="students" column="Class_id" select="com.example.demo.mapper.StudentMapper.selectByClass_id" javaType="List" ofType="com.example.demo.bean.Student"></collection>
+    </resultMap>
+       <insert id="add" parameterType="com.example.demo.bean.Grade"> 
+		INSERT INTO `class` (`Class_id`, `Class_name`) 
+         VALUES
+        (#{id}, #{Grade_Name}) 
+       </insert>
+       <delete id="delete" parameterType="int">
+       DELETE 
+      FROM
+      `class` 
+WHERE `Class_id` = #{id} ;
+       </delete>
+       <update id="update" parameterType="com.example.demo.bean.Grade">
+       UPDATE 
+      `class` 
+SET
+  `Class_id` = #{id},
+  `Class_name` = #{Grade_Name} 
+WHERE `Class_id` = #{id} ;
+       </update>
+       <select id="select"  parameterType="int" resultMap="gradeRM">
+       select * from `class` where Class_id = #{id}
+       </select>
+ </mapper> 
