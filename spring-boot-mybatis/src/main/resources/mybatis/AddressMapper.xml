@@ -28,6 +28,17 @@ WHERE `Address_id` = #{id} ;
 WHERE `Address_id` = #{id} ;
        </update>
        <select id="select"  parameterType="int" resultMap="addressRM">
-       select * from `address` where Address_id = #{id}
+       select Address_name from `address` where Address_id = #{id}
        </select> 
+       
+       <delete  id="deleteById" parameterType="Map">
+       DELETE 
+      FROM
+      `address`
+      where
+      Address_id in
+      <foreach item="d" collection="addressId" open="(" separator="," close=")">
+      #{d}
+      </foreach>
+       </delete>
  </mapper> 

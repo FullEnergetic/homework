@@ -3,14 +3,14 @@
     <mapper namespace="com.example.demo.mapper.GradeMapper">
     
     <resultMap id="gradeRM" type="com.example.demo.bean.Grade">
-        <id column="Class_id"  jdbcType="INTEGER" property="id"></id>
-        <result column="Class_name" jdbcType="VARCHAR" property="Grade_Name"></result>
-        <collection property="students" column="Class_id" select="com.example.demo.mapper.StudentMapper.selectByClass_id" javaType="List" ofType="com.example.demo.bean.Student"></collection>
+     <!--    <id column="Class_id"  jdbcType="INTEGER" property="id"></id> -->
+        <result column="Class_name" jdbcType="VARCHAR" property="grade"></result>
+     <!--    <collection property="students" column="Class_id" select="com.example.demo.mapper.StudentMapper.selectByClass_id" javaType="List" ofType="com.example.demo.bean.Student"></collection> -->
     </resultMap>
        <insert id="add" parameterType="com.example.demo.bean.Grade"> 
 		INSERT INTO `class` (`Class_id`, `Class_name`) 
          VALUES
-        (#{id}, #{Grade_Name}) 
+        (#{id}, #{GradeName}) 
        </insert>
        <delete id="delete" parameterType="int">
        DELETE 
@@ -27,6 +27,6 @@ SET
 WHERE `Class_id` = #{id} ;
        </update>
        <select id="select"  parameterType="int" resultMap="gradeRM">
-       select * from `class` where Class_id = #{id}
+       select Class_name from `class` where Class_id = #{id}
        </select>
  </mapper> 

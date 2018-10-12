@@ -7,8 +7,8 @@
         <result column="Student_name" jdbcType="VARCHAR" property="name"></result>
         <result column="Class_id"  jdbcType="INTEGER" property="gradeId"></result>
       <result column="Student_age"  jdbcType="INTEGER" property="age"></result>
-            <result column="Address_id"  jdbcType="INTEGER" property="addressId"></result>
-        <association  property="address" column="Address_id" javaType="com.example.demo.bean.Address" select="com.example.demo.mapper.AddressMapper.select"></association>
+      <association  property="address" column="Address_id" javaType="com.example.demo.bean.Address" select="com.example.demo.mapper.AddressMapper.select"></association>
+     <association  property="grade" column="Class_id" javaType="com.example.demo.bean.Grade" select="com.example.demo.mapper.GradeMapper.select"></association>
      </resultMap>
    
    
@@ -79,9 +79,24 @@ WHERE `Student_id` = #{id} ;
       `studnet`
       where
       Address_id in
-      <foreach item="d" collection="addressId" open="(" separator="," close=")">
+      <foreach item="d" collection="List" open="(" separator="," close=")">
       #{d}
       </foreach>
   </delete>
+<!--   <select id="selectByList"  parameterType="List"  resultMap="studentRM">
+   SELECT *
+      FROM
+      `studnet`
+      where
+      Student_id  in
+      <foreach item="id" collection="list" open="(" separator="," close=")">
+      #{id}
+      </foreach>
+  </select> -->
+  <select id="selectByList" resultMap="studentRM">
+   SELECT *
+      FROM
+      `studnet`
+  </select>
         
  </mapper> 

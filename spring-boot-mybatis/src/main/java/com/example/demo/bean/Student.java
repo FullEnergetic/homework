@@ -5,23 +5,41 @@ public class Student {
 	private int age;
 	private int id;
 	private Address address;
+	private Grade grade;
 	private int addressId;
 	private int gradeId;
-	public Student(String name, int age, int id, Address address, int addressId, int gradeId) {
+
+	
+	@Override
+	public String toString() {
+		return "Student [name=" + name + ", age=" + age + ", id=" + id + ", address=" + address + ", grade=" + grade
+				+ ", addressId=" + addressId + ", gradeId=" + gradeId + "]";
+	}
+	
+	public Student(String name, int age, int id, Address address, Grade grade, int addressId, int gradeId) {
 		super();
 		this.name = name;
 		this.age = age;
 		this.id = id;
 		this.address = address;
+		this.grade = grade;
 		this.addressId = addressId;
 		this.gradeId = gradeId;
 	}
-	
 	public Student() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
+	public Grade getGrade() {
+		return grade;
+	}
+
+	public void setGrade(Grade grade) {
+		this.grade = grade;
+	}
+
+
 	public int getAddressId() {
 		return addressId;
 	}
@@ -72,11 +90,6 @@ public class Student {
 	}
 
 	
-	@Override
-	public String toString() {
-		return "Student [name=" + name + ", age=" + age + ", id=" + id + ", address=" + address + ", addressId="
-				+ addressId + ", gradeId=" + gradeId + "]";
-	}
 	
 	
 	

@@ -23,8 +23,7 @@ import com.example.demo.mapper.StudentMapper;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Transactional
-@Rollback(false)
+
 public class SpringBootMybatisApplicationTests {
 	@Autowired
 	AddressMapper addressMapper;
@@ -50,13 +49,14 @@ public class SpringBootMybatisApplicationTests {
 		//this.updateStudent();
 		//this.selectStudent();
 		//this.selectByMap();
-		this.deleteByAddressId();
-		
+		//this.deleteByAddressId();
+		//this.deleteByAddress();
+
 	}
    void addGrade(){
 	   Grade grade = new Grade();
 	   grade.setId(3);
-	   grade.setGrade_Name("三班");
+	   grade.setGrade("三班");
 	   gradeMapper.add(grade);
    }
    void deleteGrade(){
@@ -67,7 +67,7 @@ public class SpringBootMybatisApplicationTests {
    void updateGrade(){
 	   Grade grade = new Grade();
 	   grade.setId(3);
-	   grade.setGrade_Name("第三班");
+	   grade.setGrade("第三班");
 	   gradeMapper.update(grade);
    }
    void selectGrade(){
@@ -138,4 +138,13 @@ public class SpringBootMybatisApplicationTests {
 	    map.put("addressId", list);
 	  studentMapper.deleteByAddressId(map);
    }
+   void deleteByAddress(){
+	   Map<String,Object> map=new HashMap<>();
+	   List<Integer> list=new ArrayList<>();
+	    list.add(6);
+	    map.put("addressId", list);
+	    addressMapper.deleteById(map);
+   }
+ 
 }
+
